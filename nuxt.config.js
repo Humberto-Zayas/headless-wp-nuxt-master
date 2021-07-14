@@ -50,6 +50,7 @@ export default {
     "~/plugins/tags.server.js",
     "~/plugins/dateformat.js"
   ],
+  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios'],
   generate: {
     routes: dynamicRoutes
   },
