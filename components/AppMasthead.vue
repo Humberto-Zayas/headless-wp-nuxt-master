@@ -1,6 +1,8 @@
 <template>
   <section class="masthead">
     <h1>{{ tagline }}</h1>
+    <h2>Site features posts and pages with WordPress content</h2>
+    <p>Any content can be called in via API</p>
   </section>
 </template>
 
@@ -8,7 +10,7 @@
 export default {
   data() {
     return {
-      tagline: "Headless WordPress on the JAMstack"
+      tagline: "Headless Content"
     };
   }
 };
@@ -22,6 +24,7 @@ section.masthead {
   overflow: hidden;
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 7vw;
@@ -53,6 +56,12 @@ section.masthead {
   h1 {
     color: white;
     @include fluid-type(font-size, 320px, 1366px, 30px, 65px);
+  }
+  h2 {
+    color: white;
+  }
+  p {
+    color: white;
   }
 }
 </style>
