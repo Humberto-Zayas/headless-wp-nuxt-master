@@ -1,7 +1,7 @@
 {
-  "name": "wp-nuxt",
+  "name": "nuxt-headless-content",
   "version": "1.0.0",
-  "description": "Headless WordPress with Nuxt",
+  "description": "Headless Content Served with Nuxt",
   "author": "geoffgraham and sdras",
   "private": true,
   "scripts": {
