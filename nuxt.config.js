@@ -47,8 +47,10 @@ export default {
    */
   plugins: [
     "~/plugins/posts.server.js",
+    "~/plugins/pages.server.js",
     "~/plugins/tags.server.js",
-    "~/plugins/dateformat.js"
+    "~/plugins/dateformat.js",
+    "~/plugins/pagination.js"
   ],
   modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios'],
   generate: {

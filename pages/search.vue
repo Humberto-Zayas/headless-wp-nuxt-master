@@ -1,48 +1,53 @@
 <template>
   <div>
-    <app-masthead></app-masthead>
+    <search-masthead :inputData.sync="parentData"></search-masthead>
     <div class="posts">
       <main>
-        <div class="post" v-for="post in sortedPosts" :key="post.id">
-          <h3>
-            <a :href="`blog/${post.slug}`">{{ post.title.rendered }}</a>
-          </h3>
-          <small>{{ post.date | dateformat }}</small>
-          <div v-html="post.excerpt.rendered"></div>
-          <a :href="`blog/${post.slug}`" class="readmore slide">Read more ⟶</a>
+        <div v-if="!parentData == ''">
+            <div class="post"  v-for="post in pageOfItems" :key="post.id">
+              <h3>
+                <a :href="`blog/${post.slug}`">{{ post.title.rendered }}</a>
+              </h3>
+              <small>{{ post.date | dateformat }}</small>
+              <div v-html="post.excerpt.rendered"></div>
+              <a :href="`blog/${post.slug}`" class="readmore slide">Read more ⟶</a>
+            </div>
+            <div class="card-footer pb-3 pt-3">
+                <jw-pagination :items="filteredList" :pageSize="3" @changePage="onChangePage"></jw-pagination>
+            </div>
         </div>
+        <div v-else>
+            <b-alert show variant="dark">
+                No results found. Please search again.
+            </b-alert>
+        </div>
+        
       </main>
-      <aside>
-        <h2 class="tags-title">Tags</h2>
-        <div class="tags-list">
-          <ul>
-            <li
-              @click="updateTag(tag)"
-              v-for="tag in tags"
-              :key="tag.id"
-              :class="[tag.id === selectedTag ? activeClass : '']"
-            >
-              <a>{{ tag.name }}</a>
-              <span v-if="tag.id === selectedTag">✕</span>
-            </li>
-          </ul>
-        </div>
-      </aside>
+      <!--  -->
     </div>
   </div>
 </template>
 
 <script>
 import AppMasthead from "@/components/AppMasthead.vue";
+import SearchMasthead from '~/components/SearchMasthead.vue';
+
+
+
 
 export default {
+  layout: 'searchlayout',
   components: {
-    AppMasthead
+    AppMasthead,
+    SearchMasthead
   },
   data() {
     return {
       selectedTag: null,
-      activeClass: "active"
+      activeClass: "active",
+      parentData: "",
+      pageSize: 3,
+      pageOfItems: []
     };
   },
   computed: {
@@ -55,24 +60,45 @@ export default {
     sortedPosts() {
       if (!this.selectedTag) return this.posts;
       return this.posts.filter(el => el.tags.includes(this.selectedTag));
+    },
+    filteredList() {
+      return this.posts.filter(post => {
+        return post.title.rendered.toLowerCase().includes(this.parentData.toLowerCase())
+      })
     }
   },
   created() {
     this.$store.dispatch("getPosts");
+    this.queryCheck()
   },
   methods: {
+    queryCheck() {
+        if (this.$route.query) {
+            this.parentData = this.$route.query.query
+        }
+    },
     updateTag(tag) {
       if (!this.selectedTag) {
         this.selectedTag = tag.id;
       } else {
         this.selectedTag = null;
       }
+    },
+    onChangePage(pageOfItems) {
+            // update page of items
+        this.pageOfItems = pageOfItems;
     }
   }
 };
 </script>
 
 <style lang="scss">
+
+.pagination {
+    .active {
+     border: none !important;
+    }
+}
 .posts {
   display: grid;
   grid-template-columns: 2fr 1fr;
