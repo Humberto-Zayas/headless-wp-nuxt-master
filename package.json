@@ -2,7 +2,7 @@
   "name": "nuxt-headless-content",
   "version": "1.0.0",
   "description": "Headless Content Served with Nuxt",
-  "author": "geoffgraham and sdras",
+  "author": "Humberto Zayas",
   "private": true,
   "scripts": {
     "dev": "nuxt",
