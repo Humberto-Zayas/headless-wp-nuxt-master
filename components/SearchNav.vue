@@ -54,7 +54,7 @@ export default {
     },
     async fetchMenu() {
       axios
-        .get(`http://localhost/nuxt/wp-json/menus/v1/menus/all-pages`)
+        .get(`https://hzayas.us/nuxtwp/wp-json/menus/v1/menus/all-pages`)
         .then(response => {
           // console.log(response.data)
           this.menu = response.data

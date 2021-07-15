@@ -1,4 +1,4 @@
-const siteURL = "http://localhost/nuxt/"
+const siteURL = "https://hzayas.us/nuxtwp/"
 
 export const state = () => ({
   posts: [],
